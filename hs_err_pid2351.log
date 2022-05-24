@@ -1,0 +1,397 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 536870912 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:2728), pid=2351, tid=2679
+#
+# JRE version:  (17.0+35) (build )
+# Java VM: OpenJDK 64-Bit Server VM (17+35-2724, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, linux-aarch64)
+# No core dump will be written. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Xmx512M -Xms512M -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:+ExplicitGCInvokesConcurrent -XX:MaxInlineLevel=15 -Djava.awt.headless=true -Xlog:gc*:file=/home/ec2-user/kafka_2.13-3.2.0/bin/../logs/zookeeper-gc.log:time,tags:filecount=10,filesize=100M -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dkafka.logs.dir=/home/ec2-user/kafka_2.13-3.2.0/bin/../logs -Dlog4j.configuration=file:bin/../config/log4j.properties org.apache.zookeeper.server.quorum.QuorumPeerMain config/zookeeper.properties
+
+Host: AArch64, 2 cores, 952M, Amazon Linux release 2 (Karoo)
+Time: Tue May 24 10:23:04 2022 BST elapsed time: 0.003265 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000ffffac027c60):  JavaThread "Unknown thread" [_thread_in_vm, id=2679, stack(0x0000ffffb1535000,0x0000ffffb1735000)]
+
+Stack: [0x0000ffffb1535000,0x0000ffffb1735000],  sp=0x0000ffffb1732e70,  free space=2039k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xd0d920]  VMError::report_and_die(int, char const*, char const*, std::__va_list, Thread*, unsigned char*, void*, void*, char const*, int, unsigned long)+0x170
+V  [libjvm.so+0xd0e4e4]  VMError::report_and_die(Thread*, char const*, int, unsigned long, VMErrorType, char const*, std::__va_list)+0x54
+V  [libjvm.so+0x596c40]  report_vm_out_of_memory(char const*, int, unsigned long, VMErrorType, char const*, ...)+0xa0
+V  [libjvm.so+0xb0e1dc]  os::pd_commit_memory_or_exit(char*, unsigned long, unsigned long, bool, char const*)+0xec
+V  [libjvm.so+0xb07ad4]  os::commit_memory_or_exit(char*, unsigned long, unsigned long, bool, char const*)+0x24
+V  [libjvm.so+0x6a4788]  G1PageBasedVirtualSpace::commit(unsigned long, unsigned long)+0x178
+V  [libjvm.so+0x6b8b64]  G1RegionsLargerThanCommitSizeMapper::commit_regions(unsigned int, unsigned long, WorkGang*)+0x194
+V  [libjvm.so+0x749b60]  HeapRegionManager::commit_regions(unsigned int, unsigned long, WorkGang*)+0x60
+V  [libjvm.so+0x74abd0]  HeapRegionManager::expand(unsigned int, unsigned int, WorkGang*)+0x30
+V  [libjvm.so+0x74add0]  HeapRegionManager::expand_by(unsigned int, WorkGang*)+0x70
+V  [libjvm.so+0x662900]  G1CollectedHeap::expand(unsigned long, WorkGang*, double*)+0x10c
+V  [libjvm.so+0x6631ac]  G1CollectedHeap::initialize()+0x81c
+V  [libjvm.so+0xcc29e8]  universe_init()+0xd4
+V  [libjvm.so+0x76aaf0]  init_globals()+0x30
+V  [libjvm.so+0xc9c3f8]  Threads::create_vm(JavaVMInitArgs*, bool*)+0x308
+V  [libjvm.so+0x829618]  JNI_CreateJavaVM+0x78
+C  [libjli.so+0x3adc]  JavaMain+0x7c
+C  [libjli.so+0x784c]  ThreadJavaMain+0xc
+C  [libpthread.so.0+0x722c]  start_thread+0xac
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x0000ffffb29e8448, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x0000ffffac04e850 GCTaskThread "GC Thread#0" [stack: 0x0000ffffb038d000,0x0000ffffb058d000] [id=2680]
+  0x0000ffffac053cc0 ConcurrentGCThread "G1 Main Marker" [stack: 0x0000ffffb018b000,0x0000ffffb038b000] [id=2681]
+  0x0000ffffac054c30 ConcurrentGCThread "G1 Conc#0" [stack: 0x0000ffff94d47000,0x0000ffff94f47000] [id=2682]
+
+[error occurred during error reporting (printing all threads), id 0xb, SIGSEGV (0xb) at pc=0x0000ffffb1e91440]
+
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x0000ffffac0243d0] Heap_lock - owner thread: 0x0000ffffac027c60
+
+Heap address: 0x00000000e0000000, size: 512 MB, Compressed Oops mode: 32-bit
+
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 0.
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0, Narrow klass range: 0x0
+
+GC Precious Log:
+<Empty>
+
+Heap:
+ garbage-first heap   total 0K, used 0K [0x00000000e0000000, 0x0000000100000000)
+  region size 1024K, 0 young (0K), 0 survivors (0K)
+
+[error occurred during error reporting (printing heap information), id 0xb, SIGSEGV (0xb) at pc=0x0000ffffb23bddf0]
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+VM Operations (0 events):
+No events
+
+Events (2 events):
+Event: 0.002 Protecting memory [0x0000ffffb1535000,0x0000ffffb1539000] with protection modes 0
+Event: 0.002 Loaded shared library /opt/jdk-17/lib/libjava.so
+
+
+Dynamic libraries:
+aaaab32cd000-aaaab32cf000 r-xp 00000000 103:02 17579957                  /opt/jdk-17/bin/java
+aaaab32ec000-aaaab32ed000 r--p 0000f000 103:02 17579957                  /opt/jdk-17/bin/java
+aaaab32ed000-aaaab32ee000 rw-p 00010000 103:02 17579957                  /opt/jdk-17/bin/java
+aaaadcffc000-aaaadd01d000 rw-p 00000000 00:00 0                          [heap]
+ffff86000000-ffff88000000 rw-p 00000000 00:00 0 
+ffff88000000-ffff88021000 rw-p 00000000 00:00 0 
+ffff88021000-ffff8c000000 ---p 00000000 00:00 0 
+ffff8c000000-ffff8c021000 rw-p 00000000 00:00 0 
+ffff8c021000-ffff90000000 ---p 00000000 00:00 0 
+ffff90000000-ffff90021000 rw-p 00000000 00:00 0 
+ffff90021000-ffff94000000 ---p 00000000 00:00 0 
+ffff9482b000-ffff94d45000 rw-p 00000000 00:00 0 
+ffff94d45000-ffff94d46000 ---p 00000000 00:00 0 
+ffff94d46000-ffff94f47000 rw-p 00000000 00:00 0 
+ffff94f47000-ffff95747000 ---p 00000000 00:00 0 
+ffff95747000-ffff959b7000 rwxp 00000000 00:00 0 
+ffff959b7000-ffff95cd6000 ---p 00000000 00:00 0 
+ffff95cd6000-ffff95f46000 rwxp 00000000 00:00 0 
+ffff95f46000-ffff9d20e000 ---p 00000000 00:00 0 
+ffff9d20e000-ffff9d47e000 rwxp 00000000 00:00 0 
+ffff9d47e000-ffffa4747000 ---p 00000000 00:00 0 
+ffffa4747000-ffffac000000 r--s 00000000 103:02 9180212                   /opt/jdk-17/lib/modules
+ffffac000000-ffffac07b000 rw-p 00000000 00:00 0 
+ffffac07b000-ffffb0000000 ---p 00000000 00:00 0 
+ffffb0088000-ffffb0189000 rw-p 00000000 00:00 0 
+ffffb0189000-ffffb018a000 ---p 00000000 00:00 0 
+ffffb018a000-ffffb038b000 rw-p 00000000 00:00 0 
+ffffb038b000-ffffb038c000 ---p 00000000 00:00 0 
+ffffb038c000-ffffb0597000 rw-p 00000000 00:00 0 
+ffffb0597000-ffffb1097000 ---p 00000000 00:00 0 
+ffffb1097000-ffffb129e000 rw-p 00000000 00:00 0 
+ffffb129e000-ffffb1384000 ---p 00000000 00:00 0 
+ffffb1384000-ffffb1389000 rw-p 00000000 00:00 0 
+ffffb1389000-ffffb146f000 ---p 00000000 00:00 0 
+ffffb146f000-ffffb1474000 rw-p 00000000 00:00 0 
+ffffb1474000-ffffb147b000 ---p 00000000 00:00 0 
+ffffb147b000-ffffb14a0000 r-xp 00000000 103:02 9180189                   /opt/jdk-17/lib/libjava.so
+ffffb14a0000-ffffb14ba000 ---p 00025000 103:02 9180189                   /opt/jdk-17/lib/libjava.so
+ffffb14ba000-ffffb14bb000 r--p 0002f000 103:02 9180189                   /opt/jdk-17/lib/libjava.so
+ffffb14bb000-ffffb14bc000 rw-p 00030000 103:02 9180189                   /opt/jdk-17/lib/libjava.so
+ffffb14bc000-ffffb14cb000 r-xp 00000000 103:02 1104                      /usr/lib64/libnss_files-2.26.so
+ffffb14cb000-ffffb14db000 ---p 0000f000 103:02 1104                      /usr/lib64/libnss_files-2.26.so
+ffffb14db000-ffffb14dc000 r--p 0000f000 103:02 1104                      /usr/lib64/libnss_files-2.26.so
+ffffb14dc000-ffffb14dd000 rw-p 00010000 103:02 1104                      /usr/lib64/libnss_files-2.26.so
+ffffb14dd000-ffffb14e3000 rw-p 00000000 00:00 0 
+ffffb14e3000-ffffb14ec000 r-xp 00000000 103:02 635658                    /usr/lib64/libnss_sss.so.2
+ffffb14ec000-ffffb1502000 ---p 00009000 103:02 635658                    /usr/lib64/libnss_sss.so.2
+ffffb1502000-ffffb1503000 r--p 0000f000 103:02 635658                    /usr/lib64/libnss_sss.so.2
+ffffb1503000-ffffb1504000 rw-p 00010000 103:02 635658                    /usr/lib64/libnss_sss.so.2
+ffffb1504000-ffffb151f000 r-xp 00000000 103:02 9180193                   /opt/jdk-17/lib/libjimage.so
+ffffb151f000-ffffb1532000 ---p 0001b000 103:02 9180193                   /opt/jdk-17/lib/libjimage.so
+ffffb1532000-ffffb1534000 r--p 0001e000 103:02 9180193                   /opt/jdk-17/lib/libjimage.so
+ffffb1534000-ffffb1535000 rw-p 00020000 103:02 9180193                   /opt/jdk-17/lib/libjimage.so
+ffffb1535000-ffffb1539000 ---p 00000000 00:00 0 
+ffffb1539000-ffffb1735000 rw-p 00000000 00:00 0 
+ffffb1735000-ffffb17e1000 r-xp 00000000 103:02 1092                      /usr/lib64/libm-2.26.so
+ffffb17e1000-ffffb17f4000 ---p 000ac000 103:02 1092                      /usr/lib64/libm-2.26.so
+ffffb17f4000-ffffb17f5000 r--p 000af000 103:02 1092                      /usr/lib64/libm-2.26.so
+ffffb17f5000-ffffb17f6000 rw-p 000b0000 103:02 1092                      /usr/lib64/libm-2.26.so
+ffffb17f6000-ffffb17fd000 r-xp 00000000 103:02 1114                      /usr/lib64/librt-2.26.so
+ffffb17fd000-ffffb1815000 ---p 00007000 103:02 1114                      /usr/lib64/librt-2.26.so
+ffffb1815000-ffffb1816000 r--p 0000f000 103:02 1114                      /usr/lib64/librt-2.26.so
+ffffb1816000-ffffb1817000 rw-p 00010000 103:02 1114                      /usr/lib64/librt-2.26.so
+ffffb1817000-ffffb2863000 r-xp 00000000 103:02 436968                    /opt/jdk-17/lib/server/libjvm.so
+ffffb2863000-ffffb287b000 ---p 0104c000 103:02 436968                    /opt/jdk-17/lib/server/libjvm.so
+ffffb287b000-ffffb2947000 r--p 01054000 103:02 436968                    /opt/jdk-17/lib/server/libjvm.so
+ffffb2947000-ffffb2976000 rw-p 01120000 103:02 436968                    /opt/jdk-17/lib/server/libjvm.so
+ffffb2976000-ffffb29f3000 rw-p 00000000 00:00 0 
+ffffb29f3000-ffffb2b55000 r-xp 00000000 103:02 490                       /usr/lib64/libc-2.26.so
+ffffb2b55000-ffffb2b6f000 ---p 00162000 103:02 490                       /usr/lib64/libc-2.26.so
+ffffb2b6f000-ffffb2b73000 r--p 0016c000 103:02 490                       /usr/lib64/libc-2.26.so
+ffffb2b73000-ffffb2b75000 rw-p 00170000 103:02 490                       /usr/lib64/libc-2.26.so
+ffffb2b75000-ffffb2b79000 rw-p 00000000 00:00 0 
+ffffb2b79000-ffffb2b7c000 r-xp 00000000 103:02 1090                      /usr/lib64/libdl-2.26.so
+ffffb2b7c000-ffffb2b98000 ---p 00003000 103:02 1090                      /usr/lib64/libdl-2.26.so
+ffffb2b98000-ffffb2b99000 r--p 0000f000 103:02 1090                      /usr/lib64/libdl-2.26.so
+ffffb2b99000-ffffb2b9a000 rw-p 00010000 103:02 1090                      /usr/lib64/libdl-2.26.so
+ffffb2b9a000-ffffb2bb6000 r-xp 00000000 103:02 1106                      /usr/lib64/libpthread-2.26.so
+ffffb2bb6000-ffffb2bc9000 ---p 0001c000 103:02 1106                      /usr/lib64/libpthread-2.26.so
+ffffb2bc9000-ffffb2bca000 r--p 0001f000 103:02 1106                      /usr/lib64/libpthread-2.26.so
+ffffb2bca000-ffffb2bcb000 rw-p 00020000 103:02 1106                      /usr/lib64/libpthread-2.26.so
+ffffb2bcb000-ffffb2bcf000 rw-p 00000000 00:00 0 
+ffffb2bcf000-ffffb2bde000 r-xp 00000000 103:02 9180194                   /opt/jdk-17/lib/libjli.so
+ffffb2bde000-ffffb2bee000 ---p 0000f000 103:02 9180194                   /opt/jdk-17/lib/libjli.so
+ffffb2bee000-ffffb2bef000 r--p 0000f000 103:02 9180194                   /opt/jdk-17/lib/libjli.so
+ffffb2bef000-ffffb2bf0000 rw-p 00010000 103:02 9180194                   /opt/jdk-17/lib/libjli.so
+ffffb2bf0000-ffffb2c04000 r-xp 00000000 103:02 1214                      /usr/lib64/libz.so.1.2.7
+ffffb2c04000-ffffb2c1f000 ---p 00014000 103:02 1214                      /usr/lib64/libz.so.1.2.7
+ffffb2c1f000-ffffb2c20000 r--p 0001f000 103:02 1214                      /usr/lib64/libz.so.1.2.7
+ffffb2c20000-ffffb2c21000 rw-p 00020000 103:02 1214                      /usr/lib64/libz.so.1.2.7
+ffffb2c21000-ffffb2c41000 r-xp 00000000 103:02 107                       /usr/lib64/ld-2.26.so
+ffffb2c49000-ffffb2c51000 rw-s 00000000 103:02 1086570                   /tmp/hsperfdata_ec2-user/2351
+ffffb2c51000-ffffb2c55000 rw-p 00000000 00:00 0 
+ffffb2c5b000-ffffb2c5c000 ---p 00000000 00:00 0 
+ffffb2c5c000-ffffb2c5d000 r--p 00000000 00:00 0 
+ffffb2c5d000-ffffb2c5e000 ---p 00000000 00:00 0 
+ffffb2c5e000-ffffb2c5f000 r--p 00000000 00:00 0                          [vvar]
+ffffb2c5f000-ffffb2c60000 r-xp 00000000 00:00 0                          [vdso]
+ffffb2c60000-ffffb2c61000 r--p 0002f000 103:02 107                       /usr/lib64/ld-2.26.so
+ffffb2c61000-ffffb2c63000 rw-p 00030000 103:02 107                       /usr/lib64/ld-2.26.so
+ffffe39c7000-ffffe39ea000 rw-p 00000000 00:00 0                          [stack]
+
+
+VM Arguments:
+jvm_args: -Xmx512M -Xms512M -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:+ExplicitGCInvokesConcurrent -XX:MaxInlineLevel=15 -Djava.awt.headless=true -Xlog:gc*:file=/home/ec2-user/kafka_2.13-3.2.0/bin/../logs/zookeeper-gc.log:time,tags:filecount=10,filesize=100M -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dkafka.logs.dir=/home/ec2-user/kafka_2.13-3.2.0/bin/../logs -Dlog4j.configuration=file:bin/../config/log4j.properties 
+java_command: org.apache.zookeeper.server.quorum.QuorumPeerMain config/zookeeper.properties
+java_class_path (initial): /home/ec2-user/kafka_2.13-3.2.0/bin/../libs/activation-1.1.1.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/aopalliance-repackaged-2.6.1.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/argparse4j-0.7.0.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/audience-annotations-0.5.0.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/commons-cli-1.4.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/commons-lang3-3.8.1.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/connect-api-3.2.0.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/connect-basic-auth-extension-3.2.0.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/connect-json-3.2.0.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/connect-mirror-3.2.0.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/connect-mirror-client-3.2.0.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/connect-runtime-3.2.0.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/connect-transforms-3.2.0.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/hk2-api-2.6.1.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/hk2-locator-2.6.1.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/hk2-utils-2.6.1.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/jackson-annotations-2.12.6.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/jackson-core-2.12.6.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/jackson-databind-2.12.6.1.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/jackson-dataformat-csv-2.12.6.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/jackson-datatype-jdk8-2.12.6.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/jackson-jaxrs-base-2.12.6.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/jackson-jaxrs-json-provider-2.12.6.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/jackson-module-jaxb-annotations-2.12.6.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/jackson-module-scala_2.13-2.12.6.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/jakarta.activation-api-1.2.1.jar:/home/ec2-user/kafka_2.13-3.2.0/bin/../libs/jakarta.annotation-api-1.3.5.jar:/home/ec2-
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 2                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 1                                         {product} {ergonomic}
+     bool ExplicitGCInvokesConcurrent              = true                                      {product} {command line}
+     uint G1ConcRefinementThreads                  = 2                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 536870912                                 {product} {command line}
+    uintx InitiatingHeapOccupancyPercent           = 35                                        {product} {command line}
+     bool ManagementServer                         = true                                      {product} {command line}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+    uintx MaxGCPauseMillis                         = 20                                        {product} {command line}
+   size_t MaxHeapSize                              = 536870912                                 {product} {command line}
+     intx MaxInlineLevel                           = 15                                     {C2 product} {command line}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 536870912                                 {product} {command line}
+    uintx NonNMethodCodeHeapSize                   = 5826252                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122915994                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122915994                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 536870912                              {manageable} {ergonomic}
+     bool UseCompressedClassPointers               = true                           {product lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {command line}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+ #2: file=/home/ec2-user/kafka_2.13-3.2.0/bin/../logs/zookeeper-gc.log all=off,gc*=info time,tags filecount=10,filesize=100M,async=false (reconfigured)
+
+Environment Variables:
+JAVA_HOME=/opt/jdk-17
+PATH=/home/ec2-user/.nvm/versions/node/v14.19.2/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/ec2-user/bin:/opt/jdk-17/bin:/home/ec2-user/.local/bin:/home/ec2-user/bin
+SHELL=/bin/bash
+LANG=en_US.UTF-8
+
+Signal Handlers:
+   SIGSEGV: crash_handler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
+    SIGBUS: crash_handler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
+    SIGFPE: crash_handler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
+   SIGPIPE: javaSignalHandler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
+   SIGXFSZ: javaSignalHandler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
+    SIGILL: crash_handler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
+   SIGUSR2: SR_handler in libjvm.so, mask=00000000000000000000000000000000, flags=SA_RESTART|SA_SIGINFO
+    SIGHUP: SIG_DFL, mask=00000000000000000000000000000000, flags=none
+    SIGINT: SIG_DFL, mask=00000000000000000000000000000000, flags=none
+   SIGTERM: SIG_DFL, mask=00000000000000000000000000000000, flags=none
+   SIGQUIT: SIG_DFL, mask=00000000000000000000000000000000, flags=none
+   SIGTRAP: crash_handler in libjvm.so, mask=11100100010111111101111111111110, flags=SA_RESTART|SA_SIGINFO
+
+
+---------------  S Y S T E M  ---------------
+
+OS:
+Amazon Linux release 2 (Karoo)
+uname: Linux 4.14.276-211.499.amzn2.aarch64 #1 SMP Wed Apr 27 21:08:44 UTC 2022 aarch64
+OS uptime: 0 days 0:54 hours
+libc: glibc 2.26 NPTL 2.26 
+rlimit (soft/hard): STACK 10240k/10240k , CORE 0k/infinity , NPROC infinity/infinity , NOFILE 65535/65535 , AS infinity/infinity , CPU infinity/infinity , DATA infinity/infinity , FSIZE infinity/infinity , MEMLOCK infinity/infinity
+load average: 0.02 0.02 0.00
+
+/proc/meminfo:
+MemTotal:         975644 kB
+MemFree:          200816 kB
+MemAvailable:     385656 kB
+Buffers:           51104 kB
+Cached:           151360 kB
+SwapCached:            0 kB
+Active:           480300 kB
+Inactive:          76596 kB
+Active(anon):     351832 kB
+Inactive(anon):      560 kB
+Active(file):     128468 kB
+Inactive(file):    76036 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+SwapTotal:             0 kB
+SwapFree:              0 kB
+Dirty:               192 kB
+Writeback:             0 kB
+AnonPages:        354452 kB
+Mapped:            92888 kB
+Shmem:               724 kB
+Slab:             105868 kB
+SReclaimable:      70324 kB
+SUnreclaim:        35544 kB
+KernelStack:        5024 kB
+PageTables:         4784 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:      487820 kB
+Committed_AS:    2152748 kB
+VmallocTotal:   135290290112 kB
+VmallocUsed:           0 kB
+VmallocChunk:          0 kB
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+CmaTotal:          65536 kB
+CmaFree:           61828 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+
+/sys/kernel/mm/transparent_hugepage/enabled: always [madvise] never
+/sys/kernel/mm/transparent_hugepage/defrag (defrag/compaction efforts parameter): always defer defer+madvise [madvise] never
+
+Process Memory:
+Virtual Size: 724904K (peak: 1244996K)
+Resident Set Size: 17376K (peak: 17376K) (anon: 6216K, file: 11160K, shmem: 0K)
+Swapped out: 0K
+C-Heap outstanding allocations: 605K
+
+/proc/sys/kernel/threads-max (system-wide limit on the number of threads): 7027
+/proc/sys/vm/max_map_count (maximum number of memory map areas a process may have): 65530
+/proc/sys/kernel/pid_max (system-wide limit on number of process identifiers): 32768
+
+container (cgroup) information:
+container_type: cgroupv1
+cpu_cpuset_cpus: 0-1
+cpu_memory_nodes: 0
+active_processor_count: 2
+cpu_quota: no quota
+cpu_period: 100000
+cpu_shares: no shares
+memory_limit_in_bytes: unlimited
+memory_and_swap_limit_in_bytes: unlimited
+memory_soft_limit_in_bytes: unlimited
+memory_usage_in_bytes: 143187968
+memory_max_usage_in_bytes: 285728768
+
+Steal ticks since vm start: 0
+Steal ticks percentage since vm start:  0.000
+
+CPU: total 2 (initial active 2) 0x41:0x3:0xd0c:1, fp, simd, evtstrm, aes, pmull, sha1, sha256, crc, lse, dcpop
+/proc/cpuinfo:
+processor	: 0
+BogoMIPS	: 243.75
+Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm lrcpc dcpop asimddp ssbs
+CPU implementer	: 0x41
+CPU architecture: 8
+CPU variant	: 0x3
+CPU part	: 0xd0c
+CPU revision	: 1
+
+processor	: 1
+BogoMIPS	: 243.75
+Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm lrcpc dcpop asimddp ssbs
+CPU implementer	: 0x41
+CPU architecture: 8
+CPU variant	: 0x3
+CPU part	: 0xd0c
+CPU revision	: 1
+
+
+Online cpus: 0-1
+Offline cpus: 
+
+Memory: 4k page, physical 975644k(200816k free), swap 0k(0k free)
+Page Sizes: 4k
+
+vm_info: OpenJDK 64-Bit Server VM (17+35-2724) for linux-aarch64 JRE (17+35-2724), built on Aug  5 2021 22:18:19 by "mach5one" with gcc 10.3.0
+
+END.
