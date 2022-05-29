@@ -1,20 +1,18 @@
-tar -xzf kafka_2.13-3.2.0.tgz
-cd kafka_2.13-3.2.0
-
 bin/zookeeper-server-start.sh config/zookeeper.properties
 bin/kafka-server-start.sh config/server.properties
 
 bin/kafka-topics.sh --create --topic quickstart-events --bootstrap-server localhost:9092
-bin/kafka-topics.sh --delete --topic quickstart-events --bootstrap-server localhost:9092
 bin/kafka-topics.sh --describe --topic quickstart-events --bootstrap-server localhost:9092
+bin/kafka-topics.sh --delete --topic quickstart-events --bootstrap-server localhost:9092
 
 bin/kafka-console-producer.sh --topic quickstart-events --bootstrap-server localhost:9092
+event 1
+event 2
+event 3
+bin/kafka-console-consumer.sh --topic quickstart-events --from-beginning --bootstrap-server localhost:9092
+
 bin/kafka-console-producer.sh --topic linux-events --bootstrap-server localhost:9092
 event 1
 event 2
 event 3
-
-bin/kafka-console-consumer.sh --topic quickstart-events --from-beginning --bootstrap-server localhost:9092
 bin/kafka-console-consumer.sh --topic linux-events --from-beginning --bootstrap-server localhost:9092
-
-
